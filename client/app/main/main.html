@@ -1,0 +1,108 @@
+<div ng-if="!$ctrl.loading && !$ctrl.Auth.isLoggedInSync()">
+  
+  <header class="hero-unit pv-banner">
+    <div class="container">
+      <h1>Poster Video 3.0!</h1>
+      <p class="lead">Make Multi-Page Poster Video with Music!</p>
+    </div>
+  </header>
+    
+  <div>
+    
+    <div class="container">
+      
+    </div>
+
+  </div>
+
+</div>
+
+
+<div ng-if="$ctrl.Auth.isLoggedInSync()">
+  
+  <header class="hero-unit pv-banner">
+    <div class="container">
+      <h1>Welcome Back!</h1>
+      <p class="lead">Thanks for using Poster Video.</p>
+
+      <div class="pv-relative-container">
+        <div ng-click="$ctrl.makeNewOne()" class="pv-add-button"> <i class="fa" ng-class="{ 'fa-plus': !$ctrl.loading, 'fa-refresh': $ctrl.loading, ' fa-spin': $ctrl.loading }"></i> </div>
+      </div>
+
+    </div>
+  </header>
+
+  
+  <div class="container">
+      
+      <div class="row">
+          
+          <div class="col-lg-12">
+              <h1 class="page-header">My Collection</h1>
+          </div>
+
+          <div class="col-lg-12" ng-if="$ctrl.myPVs.length === 0">
+            <p>
+              You haven't created any PosterVideo yet....
+            </p>
+            <!-- <pre>{{ $ctrl.myPVs | json }}</pre> -->
+          </div>
+
+          <div ng-repeat="(pvKey, myPV) in $ctrl.myPVs" class="col-lg-3 col-md-4 col-sm-4 col-xs-12 thumb">
+              <div class="thumbnail">
+                
+                
+                <poster-canvas
+                ng-click="$ctrl.goEdit(myPV)" 
+                no-pan="true"
+                class="img-responsive" 
+                ng-if="myPV.ram"
+                scene="myPV.ram.scene.arr[myPV.ram.scene.nowIndex]"></poster-canvas>
+                
+                
+
+                <img ng-show="!myPV.ram" class="img-responsive" src="http://placehold.it/300?text=New+Item+." ng-click="$ctrl.goEdit(myPV)">
+
+
+                <div class="caption">
+                  <p>{{ myPV.title }} </p>
+                  <p>{{ myPV.info }}</p>
+                  <p>
+
+                    <a href="#" class="btn btn-danger" ng-click="$ctrl.remove(myPV)" role="button">Delete</a>
+                    <a href="#" class="btn btn-info" ng-click="$ctrl.goEdit(myPV)" role="button">Edit</a>
+                    <a href="#" class="btn btn-success" ng-click="$ctrl.makeNewOne(myPV)" role="button">Copy</a>
+
+                  </p>
+                </div>
+              </div>
+
+          </div>
+      
+      </div>
+      <!-- row -->
+  </div>
+  <!-- container, -->
+
+  <!-- <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <h1 class="page-header">Features:</h1>
+        <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="thing in $ctrl.awesomeThings">
+          <li><a href="#" uib-tooltip="{{thing.info}}">{{thing.name}}<button type="button" class="close" ng-click="$ctrl.deleteThing(thing)">&times;</button></a></li>
+        </ul>
+      </div>
+    </div>
+
+    <form class="thing-form">
+      <label>Syncs in realtime across clients</label>
+      <p class="input-group">
+        <input type="text" class="form-control" placeholder="Add a new thing here." ng-model="$ctrl.newThing">
+        <span class="input-group-btn">
+          <button type="submit" class="btn btn-primary" ng-click="$ctrl.addThing()">Add New</button>
+        </span>
+      </p>
+    </form>
+  </div> -->
+
+</div>

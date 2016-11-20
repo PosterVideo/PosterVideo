@@ -1,0 +1,516 @@
+<header class="hero-unit pv-banner">
+	<div class="container">
+	<h1>Edit Poster Video</h1>
+	<p class="lead" ng-if="!$ctrl.myPV">Loading.....</p>
+	<p class="lead">Support Music and Multiple Scenes.</p>
+	<div ng-if="!$ctrl.myPV" class="pv-relative-container">
+		<div class="pv-add-button"> <i class="fa fa-spin fa-refresh"></i> </div>
+	</div>
+
+	</div>
+</header>
+
+
+<div ng-if="$ctrl.myPV">
+
+	<div class="container">
+		
+		<h1>Scenes 
+
+		<button class="btn btn-default" ng-click="$ctrl.PV.scene.copy( $ctrl.myPV.ram.scene.arr, $ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex], $ctrl.myPV.ram.scene )">Copy</button>
+		<button ng-hide="$ctrl.myPV.ram.scene.arr.length === 1" class="btn btn-danger" ng-click="$ctrl.PV.scene.delete( $ctrl.myPV.ram.scene.arr, $ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex], $ctrl.myPV.ram.scene )">Delete</button>
+
+		</h1>
+
+		<div as-sortable="$ctrl.sceneDragCtrl" class="pv-sortable-scene-container" ng-model="$ctrl.myPV.ram.scene.arr">
+			
+			<div as-sortable-item class="pv-sortable-scene col-lg-3 col-md-4 col-sm-4 col-xs-12" ng-repeat="(pvsKey, pvScene) in $ctrl.myPV.ram.scene.arr" >
+				
+				<div class="thumbnail" ng-class="{ 'pv-highlight-active': $ctrl.PV.scene.isActive($ctrl.myPV.ram.scene, pvsKey) }" as-sortable-item-handle>
+					
+					<!-- 
+					<img 
+						ng-mousedown="$ctrl.PV.scene.setActive($ctrl.myPV.ram.scene, pvScene, pvsKey)"
+					 	class="img-responsive" src="http://placehold.it/200x200" alt=""
+				 	/>
+					 -->
+				 	<poster-canvas 
+				 		no-pan="true"
+						ng-mousedown="$ctrl.PV.scene.setActive($ctrl.myPV.ram.scene, pvScene, pvsKey)"
+			 			class="img-responsive" 
+						scene="pvScene"></poster-canvas>
+
+				</div>
+				
+			</div>
+
+		</div>
+		
+	</div>
+
+	<div class="container">
+		
+		<h1>
+			Visual Details
+		</h1>
+
+		<uib-tabset active="active">
+			
+			
+
+			<uib-tab index="0">
+				<uib-tab-heading>
+					<i class="fa fa-font"></i> Text
+				</uib-tab-heading>
+				
+				<div class="row"><p></p></div>
+				
+				<div class="row">
+					<div class="col-lg-12">
+						<button ng-click="$ctrl.PV.elem.copy($ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].elem.arr, $ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene), $ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].elem)" class="btn btn-default"><i class="fa fa-plus"></i></button>
+						
+						<select style="width: 138px; display: inline-block;" class="form-control" ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).fontStyle">
+								
+							<option selected value="serif">Serif</option>
+							<option value="arial">Arial</option>
+							<option value="sans-serif">San Serif</option>
+							<option value="'Lobster Two', cursive"> Lobster </option>
+							<option value="'Text Me One', sans-serif"> Text Me One </option>
+							<option value="'Josefin Sans', sans-serif"> Josefin Sans </option>
+							<option value="'Cardo', serif"> Cardo </option>
+							<option value="'Shadows Into Light Two', cursive"> Shadows Into Light Two </option>
+							<option value="'Quicksand', sans-serif"> Quick Sand </option>
+							<option value="'Sacramento', cursive"> Sacramento </option>
+							<option value="'Great Vibes', cursive"> Great Vibes </option>
+							<option value="'Sue Ellen Francisco', cursive"> Sue Ellen Francisco </option>
+							<option value="'Bilbo Swash Caps', cursive"> Bilbo Swash Caps </option>
+							<option value="'Grand Hotel', cursive"> Grand Hotel </option>
+							<option value="'La Belle Aurore', cursive"> La Belle Aurore </option>
+							<option value="'Playball', cursive"> Play Ball </option>
+							<option value="'Playfair Display', serif"> Playfair Display </option>
+							<option value="'League Script', cursive"> League Script </option>
+
+					    </select>
+
+						<button uib-popover-template="'myFontSizeTemplate.html'" popover-title="Font Size" popover-trigger="'outsideClick'" type="button" class="btn btn-default"> <i class="fa fa-font"></i> {{ $ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).fontSize }}</button>
+						<script type="text/ng-template" id="myFontSizeTemplate.html">
+					        <div class="form-group">
+					        	<input class="form-control" type="text" ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).fontSize">
+					        </div>
+					        <div class="form-group">
+								<!-- <label>Font Size: </label> <span  class="pv-underline" contenteditable></span></label> -->
+								<input type="range" value="1000" ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).fontSize" min="5" max="300">
+							</div>
+					    </script>
+
+
+					    <button uib-popover-template="'myXPosTemplate.html'" popover-title="X Position" popover-trigger="'outsideClick'" type="button" class="btn btn-default"> <i class="fa fa-text-width"></i> {{ $ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).xPos }}</button>
+						<script type="text/ng-template" id="myXPosTemplate.html">
+					        <div class="form-group">
+					        	<input class="form-control" type="text" ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).xPos">
+					        </div>
+					        <div class="form-group">
+								<!-- <label>Font Size: </label> <span  class="pv-underline" contenteditable></span></label> -->
+								<input type="range" value="1000" ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).xPos" min="0" max="1080">
+							</div>
+					    </script>
+
+					    <button uib-popover-template="'myYPosTemplate.html'" popover-title="Y Position" popover-trigger="'outsideClick'" type="button" class="btn btn-default"> <i class="fa fa-text-height"></i> {{ $ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).yPos }}</button>
+						<script type="text/ng-template" id="myYPosTemplate.html">
+					        <div class="form-group">
+					        	<input class="form-control" type="text" ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).yPos">
+					        </div>
+					        <div class="form-group">
+								<!-- <label>Font Size: </label> <span  class="pv-underline" contenteditable></span></label> -->
+								<input type="range" value="1000" ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).yPos" min="0" max="1080">
+							</div>
+					    </script>
+
+
+					    <button uib-popover-template="'myRotationTemplate.html'" popover-title="Rotation" popover-trigger="'outsideClick'" type="button" class="btn btn-default"> <i class="fa fa-refresh"></i> {{ $ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).rDeg }}° </button>
+						<script type="text/ng-template" id="myRotationTemplate.html">
+					        <div class="form-group">
+					        	<input class="form-control" type="text" ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).rDeg">
+					        </div>
+					        <div class="form-group">
+								<!-- <label>Font Size: </label> <span  class="pv-underline" contenteditable></span></label> -->
+								<input type="range" value="1000" ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).rDeg" min="-360" max="360">
+							</div>
+					    </script>
+						
+						<div class="btn-group">
+							<label class="btn btn-default" ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).rCenter" uib-btn-radio="'left'"><i class="fa fa-align-left"></i></label>
+							<label class="btn btn-default" ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).rCenter" uib-btn-radio="'center'"><i class="fa fa-align-center"></i></label>
+							<label class="btn btn-default" ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).rCenter" uib-btn-radio="'right'"><i class="fa fa-align-right"></i></label>
+						</div>
+							
+						<!-- <input class="form-control" type="color" style="width: 42px; display: inline-block;" ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).fontColor" > -->
+						<div class="" style="position: relative; width: 40px; height: 0px; display: inline-block;">
+							<color-picker options="{ format: 'rgb', swatchOnly: true }" style="width: 42px; display: block; position: absolute; top: -22px;" ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).fontColor"></color-picker>
+						</div>
+						
+
+						<button 
+							ng-show="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].elem.arr.length > 1"
+							class="btn btn-danger"
+							ng-click="$ctrl.PV.elem.delete( $ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].elem.arr, $ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene), $ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].elem )"
+						>Delete</button>
+
+					</div>
+
+
+				</div>
+
+
+
+				<div class="row">
+					<div class="col-sm-4">
+						
+						<h3>Text Elements</h3>
+
+						<div class="form-group"
+							ng-repeat="(elemKey, pvElem) in $ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].elem.arr track by $index"
+						>
+							<input 
+								ng-model="pvElem.text"
+								type="text" 
+								class="form-control"
+								ng-focus="$ctrl.PV.elem.setActive($ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].elem, pvElem, elemKey)"
+								ng-class="{
+									'active': $ctrl.PV.elem.isActive($ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].elem, elemKey)
+								}"
+							/>
+							<!-- <input type="text" class="form-control active" /> -->
+						</div>
+						
+						
+
+						<!-- <div ng-if="false">
+							<div class="form-group">
+								<label>Font Style: </label>
+								<select class="form-control" ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).fontStyle">
+									
+									<option selected value="serif">Serif</option>
+									<option value="arial">Arial</option>
+									<option value="sans-serif">San Serif</option>
+									<option value="'Lobster Two', cursive"> Lobster </option>
+									<option value="'Text Me One', sans-serif"> Text Me One </option>
+									<option value="'Josefin Sans', sans-serif"> Josefin Sans </option>
+									<option value="'Cardo', serif"> Cardo </option>
+									<option value="'Shadows Into Light Two', cursive"> Shadows Into Light Two </option>
+									<option value="'Quicksand', sans-serif"> Quick Sand </option>
+									<option value="'Sacramento', cursive"> Sacramento </option>
+									<option value="'Great Vibes', cursive"> Great Vibes </option>
+									<option value="'Sue Ellen Francisco', cursive"> Sue Ellen Francisco </option>
+									<option value="'Bilbo Swash Caps', cursive"> Bilbo Swash Caps </option>
+									<option value="'Grand Hotel', cursive"> Grand Hotel </option>
+									<option value="'La Belle Aurore', cursive"> La Belle Aurore </option>
+									<option value="'Playball', cursive"> Play Ball </option>
+									<option value="'Playfair Display', serif"> Playfair Display </option>
+									<option value="'League Script', cursive"> League Script </option>
+
+							    </select>
+							</div>
+							<div class="form-group">
+								<label>Font Size: </label> <span ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).fontSize" class="pv-underline" contenteditable></span></label>
+								<input type="range" value="1000" ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).fontSize" min="5" max="300">
+							</div>
+							<div class="form-group">
+								<label>X Position: </label> <span ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).xPos" class="pv-underline" contenteditable></span></label>
+								<input type="range" value="1000" ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).xPos" min="0" max="1080">
+							</div>
+							<div class="form-group">
+								<label>Y Position: </label> <span ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).yPos" class="pv-underline" contenteditable></span></label>
+								<input type="range" value="1000" ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).yPos" min="0" max="1080">
+							</div>
+							<div class="form-group">
+								<label>Rotation: </label> <span ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).rDeg" class="pv-underline" contenteditable>0</span></label>
+								<input type="range" value="1000" ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).rDeg" min="-360" max="360">
+							</div>
+							<div class="form-group">
+								<label>Rotation Center</label>
+								<div class="btn-group">
+									<label class="btn btn-info" ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).rCenter" uib-btn-radio="'left'">Left</label>
+									<label class="btn btn-info" ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).rCenter" uib-btn-radio="'center'">Center</label>
+									<label class="btn btn-info" ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).rCenter" uib-btn-radio="'right'">Right</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<label>Color</label>
+								<input class="form-control" type="color" ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).fontColor" >
+							</div>
+							<div class="form-group">
+								<label>Delete this text</label>
+								<br>
+								<button class="btn btn-danger">Delete</button>
+							</div>
+						</div> -->
+						<!-- display none -->
+
+					</div>
+					<div class="col-sm-8">
+						<poster-canvas class="img-responsive" 
+						scene="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex]"></poster-canvas>
+						<!-- <img height="200px" class="img-responsive" src="http://placehold.it/1080x1080" alt=""> -->
+						<br>
+						<p>P.S. The Canvas act as a trackpad for the <i>Selected Text</i>. You can drag around the text.</p>
+					</div>
+
+				</div>
+
+			</uib-tab>
+			
+			<uib-tab index="1">
+				<uib-tab-heading>
+					<i class="fa fa-photo"></i> Background
+				</uib-tab-heading>
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="form-group">
+							<input type="file" accept="image/*" file-selector file-type="'background'" ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].bg">
+						</div>
+						<div class="checkbox">
+							<label><input type="checkbox" ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].bg.yes"> Render?</label>
+						</div>
+						
+						<div class="form-group">
+							<label>Adjust Background: </label> <span ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].bg.xPos" class="pv-underline" contenteditable></span></label>
+							<input type="range" value="1000" ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].bg.xPos" min="-1080" max="1080">
+						</div>
+						<!-- <div class="form-group">
+							<label>Y Position: </label> <span ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).yPos" class="pv-underline" contenteditable></span></label>
+							<input type="range" value="1000" ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).yPos" min="0" max="1080">
+						</div> -->
+						
+					</div>
+					<div class="col-sm-8">
+						<poster-canvas class="img-responsive" 
+						move="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].bg"
+						scene="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex]"></poster-canvas>
+					</div>
+				</div>
+			</uib-tab>
+
+			<uib-tab index="2">
+				<uib-tab-heading>
+					<i class="fa fa-asterisk"></i> Logo
+				</uib-tab-heading>
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="form-group">
+							<input type="file" accept="image/*" file-selector file-type="'logo'" ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].logo">
+						</div>
+						<div class="checkbox">
+							<label><input type="checkbox" ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].logo.yes"> Render Logo?</label>
+						</div>
+						<div class="form-group">
+							<label>X Position: </label> <span ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].logo.xPos" class="pv-underline" contenteditable></span></label>
+							<input type="range" value="1000" ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].logo.xPos" min="-1080" max="1080">
+						</div>
+						<div class="form-group">
+							<label>Y Position: </label> <span ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].logo.yPos" class="pv-underline" contenteditable></span></label>
+							<input type="range" value="1000" ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].logo.yPos" min="-1080" max="1080">
+						</div>
+						<div class="form-group">
+							<label>Scale: </label> <span ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].logo.scale" class="pv-underline" contenteditable></span></label>
+							<input type="range" value="1000" ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].logo.scale" min="0" max="100">
+						</div>
+
+					</div>
+					<div class="col-sm-8">
+						<poster-canvas class="img-responsive" 
+						move="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].logo"
+						scene="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex]"></poster-canvas>
+					</div>
+				</div>
+			</uib-tab>
+			
+			<uib-tab index="3">
+				<uib-tab-heading>
+					<i class="fa fa-pencil-square-o"></i> Overcast
+				</uib-tab-heading>
+				<div class="row">
+					<div class="col-sm-4">
+						
+						<div class="checkbox">
+							<label><input type="checkbox" ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].overcast.yes"> Render?</label>
+						</div>
+
+						<div class="form-group">
+							<label>X Position: </label> <span ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].overcast.xPos" class="pv-underline" contenteditable></span></label>
+							<input type="range" value="1000" ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].overcast.xPos" min="-1080" max="1080">
+						</div>
+						<div class="form-group">
+							<label>Y Position: </label> <span ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].overcast.yPos" class="pv-underline" contenteditable></span></label>
+							<input type="range" value="1000" ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].overcast.yPos" min="-1080" max="1080">
+						</div>
+						
+						<div class="form-group">
+							<label>Width: </label> <span ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].overcast.width" class="pv-underline" contenteditable></span></label>
+							<input type="range" value="1000" ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].overcast.width" min="-1080" max="1080">
+						</div>
+						<div class="form-group">
+							<label>Height: </label> <span ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].overcast.height" class="pv-underline" contenteditable></span></label>
+							<input type="range" value="1000" ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].overcast.height" min="-1080" max="1080">
+						</div>
+
+						<color-picker options="{ format: 'rgb', swatchOnly: false }" 
+						ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].overcast.color"></color-picker>
+
+					</div>
+					<div class="col-sm-8">
+						<poster-canvas class="img-responsive" 
+						move="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].overcast"
+						scene="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex]"></poster-canvas>
+					</div>
+				</div>
+			</uib-tab>
+
+			<uib-tab index="4">
+				<uib-tab-heading>
+					<i class="fa fa-square-o"></i> Border
+				</uib-tab-heading>
+				<div class="row">
+					<div class="col-sm-4">
+						
+						<div class="checkbox">
+							<label><input type="checkbox" ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].border.yes"> Render?</label>
+						</div>
+						
+						<div class="form-group">
+							<label>Line Width: </label> <span ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].border.lineWidth" class="pv-underline" contenteditable></span></label>
+							<input type="range" value="1000" ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].border.lineWidth" min="0" max="1080">
+						</div>
+						
+						<div class="form-group">
+							<label>X Position: </label> <span ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].border.xPos" class="pv-underline" contenteditable></span></label>
+							<input type="range" value="1000" ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].border.xPos" min="-1080" max="1080">
+						</div>
+						<div class="form-group">
+							<label>Y Position: </label> <span ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].border.yPos" class="pv-underline" contenteditable></span></label>
+							<input type="range" value="1000" ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].border.yPos" min="-1080" max="1080">
+						</div>
+						
+						<div class="form-group">
+							<label>Width: </label> <span ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].border.width" class="pv-underline" contenteditable></span></label>
+							<input type="range" value="1000" ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].border.width" min="-1080" max="1080">
+						</div>
+						<div class="form-group">
+							<label>Height: </label> <span ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].border.height" class="pv-underline" contenteditable></span></label>
+							<input type="range" value="1000" ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].border.height" min="-1080" max="1080">
+						</div>
+
+						<color-picker options="{ format: 'rgb', swatchOnly: false }" 
+						ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].border.color"></color-picker>
+						
+
+					</div>
+					<div class="col-sm-8">
+						<poster-canvas class="img-responsive" 
+						move="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].border"
+						scene="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex]"></poster-canvas>
+					</div>
+				</div>
+			</uib-tab>
+
+			<uib-tab index="5">
+				<uib-tab-heading>
+					<i class="fa fa-square-o"></i> Preview
+				</uib-tab-heading>
+				
+
+				<div class="row">
+					
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label>
+								Steps of Rendering...
+							</label>
+							<input type="range" ng-model="$ctrl.step" min="0" max="{{ $ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].elem.arr.length }}">
+						</div>
+
+						
+					</div>
+					<div class="col-sm-8">
+						<poster-canvas 
+							class="img-responsive" 
+							no-pan="true"
+							step="$ctrl.step"
+							canvas="$ctrl.canvas"
+							scene="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex]">
+						</poster-canvas>
+					</div>
+
+				</div>
+
+			</uib-tab>
+
+
+		</uib-tabset>
+
+	</div>
+
+	<div class="container">
+		
+		<h1>
+			Music
+		</h1>
+
+		<div class="row">
+			<div class="col-lg-12">
+				
+				<div class="form-group">
+					<input type="file" accept="audio/*" file-selector file-type="'song'" ng-model="$ctrl.song">
+				</div>
+				<p>
+					P.S. Please only use free / legal music and give appropraite credit.
+				</p>
+						
+			</div>
+		</div>
+
+	</div>
+
+	<div class="container">
+		
+		<h1>Download!</h1>
+		
+		<div class="form-group">
+			
+			<div class="progress"> 
+				<div class="progress-bar progress-bar-striped active" role="progressbar" style="width: {{ $ctrl.progress * 100 }}%">
+				</div>
+			</div>
+			
+			<button ng-hide="$ctrl.started" class="btn btn-default" ng-click="$ctrl.requestVideo()">Request Video</button>
+
+			<a download filename="PosterVideo.mp4" ng-show="$ctrl.videoUrl !== ''" ng-model="$ctrl.videoUrl" class="btn btn-info">Download</a>
+			
+			<canvas-video ng-show="$ctrl.videoUrl !== ''" ng-model="$ctrl.videoUrl"></canvas-video>
+
+		</div>
+		
+
+	</div>
+
+
+	<div class="container">
+		
+		<h1>Edit Info</h1>
+
+		<div class="form-group">
+			<label>Title</label>
+			<input class="form-control" type="text" ng-model="$ctrl.myPV.title" />
+		</div>
+		<div class="form-group">
+			<label>Info</label>
+			<textarea class="form-control" rows="8" ng-model="$ctrl.myPV.info" ></textarea>
+		</div>
+
+	</div>
+
+	<!-- <div class="container">
+		<pre>{{ $ctrl.myPV | json }}</pre>
+	</div>
+ -->
+</div>

@@ -1,0 +1,48 @@
+.thing-form {
+  margin: 20px 0;
+}
+
+.pv-banner {
+  border-bottom: none;
+  margin-top: -20px;
+}
+
+.pv-banner h1 {
+  font-size: 60px;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.hero-unit {
+  position: relative;
+  padding: 30px 15px;
+  color: #F5F5F5;
+  text-align: center;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+  background: #4393B9;
+}
+
+.navbar-text {
+  margin-left: 15px;
+}
+
+
+.pv-relative-container{
+  position: relative;
+}
+
+.pv-add-button{
+  position: absolute;
+  right: 25px;
+  bottom: -72px;
+  color: white;
+  border-radius: 50%;
+  border: #7addfd solid 1px;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #00c0ff;
+  font-size: 49px;
+}
