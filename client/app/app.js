@@ -34,6 +34,8 @@ import posterEdit from './postervideo/PosterEdit/PosterEdit.component';
 import posterService from './postervideo/PosterService/PosterService.service';
 import posterCanvas from './postervideo/PosterCanvas/PosterCanvas.directive';
 
+// import posterExplore from './postervideo/explore/explore.component';
+
 
 import constants from './app.constants';
 import util from '../components/util/util.module';
@@ -54,6 +56,8 @@ angular.module('pvApp', [
     posterService,
     posterEdit,
     posterCanvas,
+    
+    // posterExplore,
     
     uiBootstrap, _Auth, account, admin, navbar, footer, main, constants, socket, util
 

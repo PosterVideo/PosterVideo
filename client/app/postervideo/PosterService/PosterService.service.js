@@ -214,7 +214,7 @@ export function PosterVideoService($http) {
 	this.http.list = function(){
 		return $http({
 			method: 'GET',
-			url: '/api/postervideos/'
+			url: '/api/postervideos'
 		});
 	};
 

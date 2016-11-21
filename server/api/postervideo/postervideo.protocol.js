@@ -104,7 +104,7 @@ export function register(socket){
 		setTimeout(function(){
 			deleteFolderRecursive( getTempDir(taskData.tid) );
 			ffmpegMod.close();
-		},1000 * 60 * 5);
+		},1000 * 60 * 15);
 
 		socket.on('pv:each:' + taskData.tid, function(eData){
 			ffmpegMod.stream({

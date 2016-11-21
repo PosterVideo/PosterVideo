@@ -50,8 +50,8 @@
 
           <div ng-repeat="(pvKey, myPV) in $ctrl.myPVs" class="col-lg-3 col-md-4 col-sm-4 col-xs-12 thumb">
               <div class="thumbnail">
-                
-                
+
+
                 <poster-canvas
                 ng-click="$ctrl.goEdit(myPV)" 
                 no-pan="true"
@@ -59,14 +59,11 @@
                 ng-if="myPV.ram"
                 scene="myPV.ram.scene.arr[myPV.ram.scene.nowIndex]"></poster-canvas>
                 
-                
-
                 <img ng-show="!myPV.ram" class="img-responsive" src="http://placehold.it/300?text=New+Item+." ng-click="$ctrl.goEdit(myPV)">
-
 
                 <div class="caption">
                   <p>{{ myPV.title }} </p>
-                  <p>{{ myPV.info }}</p>
+                  <p class="pv-desc-info">{{ myPV.info }}</p>
                   <p>
 
                     <a href="#" class="btn btn-danger" ng-click="$ctrl.remove(myPV)" role="button">Delete</a>

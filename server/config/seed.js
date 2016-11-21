@@ -6,6 +6,7 @@
 'use strict';
 import Thing from '../api/thing/thing.model';
 import User from '../api/user/user.model';
+import PosterVideo from '../api/postervideo/postervideo.model';
 
 Thing.find({}).remove()
   .then(() => {
@@ -38,6 +39,10 @@ Thing.find({}).remove()
             + 'and openshift subgenerators'
     });
   });
+
+PosterVideo.find({}).remove().then(function(){
+  console.log('Cleaned PosterVideos');
+});
 
 User.find({}).remove()
   .then(() => {
