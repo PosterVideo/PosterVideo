@@ -34,13 +34,17 @@ import posterEdit from './postervideo/PosterEdit/PosterEdit.component';
 import posterService from './postervideo/PosterService/PosterService.service';
 import posterCanvas from './postervideo/PosterCanvas/PosterCanvas.directive';
 
+import imageBrowse from './image/ImageBrowse/ImageBrowse.component';
+import imageService from './image/ImageService/ImageService.service';
+import imageUploader from './image/ImageUploader/ImageUploader.directive';
+
+
 // import posterExplore from './postervideo/explore/explore.component';
 
 
 import constants from './app.constants';
 import util from '../components/util/util.module';
 import socket from '../components/socket/socket.service';
-
 
 import './app.scss';
 
@@ -51,6 +55,10 @@ angular.module('pvApp', [
     
     'as.sortable',
     
+    imageBrowse,
+    imageService,
+    imageUploader,
+
     posterService,
     posterEdit,
     posterCanvas,

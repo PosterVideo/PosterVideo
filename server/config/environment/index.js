@@ -45,6 +45,12 @@ var all = {
     }
   },
 
+  s3: {
+    awsAccessKeyID: process.env.AWS_ACCESS_KEY_ID || 'id',
+    awsSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || 'secret',
+    s3Bucket: process.env.S3_BUCKET || 'bucket'
+  },
+
   facebook: {
     clientID: process.env.FACEBOOK_ID || 'id',
     clientSecret: process.env.FACEBOOK_SECRET || 'secret',
