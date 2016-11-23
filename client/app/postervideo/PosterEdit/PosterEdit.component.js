@@ -164,10 +164,6 @@ export class PosterEditComponent {
       },1000);
     }.bind(this));
 
-
-
-
-
   }
 
   // test(){

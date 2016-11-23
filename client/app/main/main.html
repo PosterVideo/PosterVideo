@@ -48,9 +48,8 @@
             <!-- <pre>{{ $ctrl.myPVs | json }}</pre> -->
           </div>
 
-          <div ng-repeat="(pvKey, myPV) in $ctrl.myPVs" class="col-lg-3 col-md-4 col-sm-4 col-xs-12 thumb">
-              <div class="thumbnail">
-
+          <div ng-repeat="column in [0,1,2]" class="col-lg-4 col-md-4 col-sm-4 col-xs-12 thumb">
+              <div class="thumbnail" ng-if="$index % 3 === column" d-ng-if="$ctrl.getRemain($index, column)" ng-repeat="(pvKey, myPV) in $ctrl.myPVs">
 
                 <poster-canvas
                 ng-click="$ctrl.goEdit(myPV)" 

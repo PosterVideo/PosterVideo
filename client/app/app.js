@@ -42,9 +42,7 @@ import util from '../components/util/util.module';
 import socket from '../components/socket/socket.service';
 
 
-
 import './app.scss';
-
 
 
 angular.module('pvApp', [

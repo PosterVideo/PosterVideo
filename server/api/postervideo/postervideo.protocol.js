@@ -1,7 +1,5 @@
 import ffmpeg from './postervideo.ffmpeg';
-
 import md5 from 'md5';
-
 
 var mkdirp = require('mkdirp');
 var fs = require('fs');
@@ -9,7 +7,6 @@ var Promise = require('bluebird');
 var path = require('path');
 
 export function register(socket){
-
 
 	function deleteFolderRecursive(path) {
 	  if( fs.existsSync(path) ) {
@@ -25,8 +22,6 @@ export function register(socket){
 	  }
 	}
 
-	
-
 	function createFolder(folderUrl){
 		return new Promise(function(resolve, reject){
 			mkdirp(folderUrl, function(err) {
@@ -39,9 +34,11 @@ export function register(socket){
 			});
 		});
 	}
+
 	function createTempFolder(tid){
 		return createFolder(getTempDir(tid));
 	}
+	
 	function writeFile(writePath, fileData){
 		return new Promise(function(resolve, reject){
 			fs.writeFile(writePath, fileData, function(err) {
