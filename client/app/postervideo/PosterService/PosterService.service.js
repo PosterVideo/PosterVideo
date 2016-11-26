@@ -83,9 +83,40 @@ export function PosterVideoService($http) {
 	// 	arr.splice( arr.indexOf(item), 1 );
 	// }.bind(this);
 
+	this.ram = {};
+	this.ram.image2ram = function (ram){
+		angular.forEach(ram.scene.arr, function(scene){
 
+			if (scene.logo && scene.logo.url){
+				let newImage = new Image();
+				newImage.setAttribute('crossOrigin', 'anonymous');
+				newImage.src = scene.logo.url;
+				newImage.onload = function(){
+					scene.logo.img = newImage;
+					scene.logo.refresh = Math.random();
+				};
+				newImage.onerror = function(){
+					delete scene.logo.img;
+					delete scene.logo.url;
+				};
+			}
 
+			if (scene.bg && scene.bg.url){
+				let newImage = new Image();
+				newImage.setAttribute('crossOrigin', 'anonymous');
+				newImage.src = scene.bg.url;
+				newImage.onload = function(){
+					scene.bg.img = newImage;
+					scene.bg.refresh = Math.random();
+				};
+				newImage.onerror = function(){
+					delete scene.bg.img;
+					delete scene.bg.url;
+				};
+			}
 
+		});
+	};
 
 
 	var gradientCache;
@@ -99,7 +130,6 @@ export function PosterVideoService($http) {
 			var lingrad = gradientCache || ( gradientCache = (function(){
 
 				var grad = ctx.createLinearGradient(1080,1080,0,0);
-
 				grad.addColorStop(0, '#dfdfdf');
 				grad.addColorStop(1, '#fdfdfd');
 

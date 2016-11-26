@@ -41,12 +41,15 @@ function patchUpdates(patches) {
   };
 }
 
+
+
 function removeEntity(res) {
   return function(entity) {
     if(entity) {
       return entity.remove()
         .then(() => {
           res.status(204).end();
+          return null;
         });
     }
   };
@@ -70,35 +73,132 @@ function handleError(res, statusCode) {
 }
 
 
+function handleS3DelteFile(){
+  return function(entity){
+    return new Promise(function(resolve, reject){
+
+      if (entity){
+        var S3_BUCKET = process.env.S3_BUCKET;
+        var s3 = new aws.S3();
+        
+        var ans = [false, false];
+
+        var fileParams = {
+          Bucket: S3_BUCKET,
+          Key: entity.fileKey
+        };
+
+        s3.deleteObject(fileParams, function (err, data) {
+          if (data) {
+            console.log('S3 File deleted successfully');
+            
+            ans[0] = true;
+
+            if (ans[0] && ans[1]){
+              resolve(entity);
+            }
+
+          } else {
+            console.log(err);
+            reject(err);
+          }
+        });
+
+        var tumbParams = {
+          Bucket: S3_BUCKET,
+          Key: entity.thumbKey
+        };
+
+        s3.deleteObject(tumbParams, function (err, data) {
+          if (data) {
+            console.log('S3 Thumb deleted successfully');
+            
+            ans[1] = true;
+
+            if (ans[0] && ans[1]){
+              resolve(entity);
+            }
+          
+          } else {
+            console.log(err);
+            reject(err);
+          }
+        });
+
+      }else{
+        console.error('cannot find mongo file');
+        reject('no entity');
+      }
+
+    });
+  }
+}
+
+
 export function signS3(req, res){
 
   var S3_BUCKET = process.env.S3_BUCKET;
 
-  const s3 = new aws.S3();
-  const fileName = req.body.fileName;//['file-name'];
-  const fileType = req.body.fileType;//['file-type'];
-  const s3Params = {
+  const s3File = new aws.S3();
+  const s3Thumb = new aws.S3();
+  const fileName = req.body.fileName;
+  const fileType = req.body.fileType;
+
+  const thumbName = req.body.thumbName;
+  const thumbType = req.body.thumbType;
+
+  const fileS3Params = {
     Bucket: S3_BUCKET,
     Key: fileName,
     Expires: 60,
     ContentType: fileType,
     ACL: 'public-read'
   };
+  const thumbS3Params = {
+    Bucket: S3_BUCKET,
+    Key: thumbName,
+    Expires: 60,
+    ContentType: thumbType,
+    ACL: 'public-read'
+  };
 
-  s3.getSignedUrl('putObject', s3Params, (err, data) => {
+  var returnArr = [null, null];
+
+  s3File.getSignedUrl('putObject', fileS3Params, (err, data) => {
     if(err){
       console.log(err);
       return res.end();
     }
-    const returnData = {
+
+    returnArr[0] = {
       signedRequest: data,
       url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
     };
 
-    console.log(returnData);
+    if (returnArr[0] !== null && returnArr[1] !== null){
+      res.status(200).json(returnArr);
+    }
 
-    res.status(200).json(returnData);
+    
+    // res.write(JSON.stringify(returnData));
+    // res.end();
+  });
 
+  s3Thumb.getSignedUrl('putObject', thumbS3Params, (err, data) => {
+    if(err){
+      console.log(err);
+      return res.end();
+    }
+    
+    returnArr[1] = {
+      signedRequest: data,
+      url: `https://${S3_BUCKET}.s3.amazonaws.com/${thumbName}`
+    };
+
+    if (returnArr[0] !== null && returnArr[1] !== null){
+      res.status(200).json(returnArr);
+    }
+    
     // res.write(JSON.stringify(returnData));
     // res.end();
   });
@@ -181,6 +281,7 @@ export function patch(req, res) {
 export function destroy(req, res) {
   return Image.findById(req.params.id).exec()
     .then(handleEntityNotFound(res))
+    .then(handleS3DelteFile())
     .then(removeEntity(res))
     .catch(handleError(res));
 }

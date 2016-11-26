@@ -35,9 +35,10 @@ export class MainController {
 
             if (item.json !== ''){
               item.ram = JSON.parse(item.json);
+              this.PV.ram.image2ram(item.ram);
             }
           
-          });
+          }.bind(this));
 
         }.bind(this)).catch(function(){
           this.loading = false;

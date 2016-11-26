@@ -8,9 +8,13 @@ import routes from './PosterEdit.routes';
 import NProgress from 'nprogress';
 
 export class PosterEditComponent {
-  constructor(PosterVideo, $stateParams, socket, $scope) {
+  constructor(PosterVideo, Images, $stateParams, socket, $scope) {
     'ngInject';
+
+    
     this.PV = PosterVideo;
+    this.Images = Images;
+    
     this.$stateParams = $stateParams;
 
     this.message = 'Hello';
@@ -36,11 +40,11 @@ export class PosterEditComponent {
     this.canvas = {};
     this.progress = 0;
 
+    // this.socket.on('sample', function(data){
+    //   console.log(data);
+    // });
 
 
-    this.socket.on('sample', function(data){
-      console.log(data);
-    });
 
   }
 
@@ -54,19 +58,19 @@ export class PosterEditComponent {
     return Math.random() + '-' + Math.random();
   }
 
-  startTask(id){
-    if (this.song.song){
-      this.socket.emit('pv:task', {
-        tid: id,
-        filename: this.song.filename,
-        song: this.song.song
-      });
-    }else{
-      this.socket.emit('pv:task', {
-        tid: id
-      });
-    }
-  }
+  // startTask(id){
+  //   if (this.song.song){
+  //     this.socket.emit('pv:task', {
+  //       tid: id,
+  //       filename: this.song.filename,
+  //       song: this.song.song
+  //     });
+  //   }else{
+  //     this.socket.emit('pv:task', {
+  //       tid: id
+  //     });
+  //   }
+  // }
 
  
 
@@ -250,8 +254,6 @@ export class PosterEditComponent {
 
   getSampleRam(){
 
-
-
     return {
           scene: {
             nowIndex: 0,
@@ -369,9 +371,55 @@ export class PosterEditComponent {
     }.bind(this), 3000);
   }
 
+  
+
+  applyImage(image, target, key){
+
+    if (!key) { return; }
+
+    target[key] = {
+      url: image.fileURL,
+      img: false,
+      yes: true,
+      xPos: 0,
+      yPos: 0,
+      width: 0,
+      height: 0,
+      scale: 20
+    };
+    
+    var newImage = new Image();
+    newImage.setAttribute('crossOrigin', 'anonymous');
+    NProgress.start();
+    newImage.onprogress = function(e){
+      if (e.lengthComputable){
+        NProgress.set(e.loaded / e.total);
+      }
+    };
+    newImage.onload = function(){
+      target[key].img = newImage;
+      target[key].width = newImage.width;
+      target[key].height = newImage.height;
+      NProgress.done();
+    };
+
+    newImage.src = image.fileURL;
+
+    
+  }
+
+  refreshImage(input){
+    
+    this.Images.http.my({
+      query: (input === '') ? ' ' : input 
+    }).then(function(response){
+      this.images = response.data;
+    }.bind(this));
+
+  }
+
   $onInit(){
-
-
+    this.refreshImage('');
 
     this.PV.http.show(this.$stateParams.id)
       .then(function(response){
@@ -381,6 +429,10 @@ export class PosterEditComponent {
         this.initUpdater();
 
         this.myPV.ram = (this.myPV.json !== '') ? JSON.parse(this.myPV.json) : this.getDemoRam();
+
+        this.PV.ram.image2ram(this.myPV.ram);
+
+        console.log(this.getDemoRam());
 
       }.bind(this));
   }
@@ -394,7 +446,40 @@ export default angular.module('pvApp.posterEdit', [uiRouter])
     controller: PosterEditComponent,
     controllerAs: '$ctrl'
   })
-  .directive("contenteditable", function() {
+  .filter('propsFilter', function() {
+    return function(items, props) {
+      var out = [];
+
+      if (angular.isArray(items)) {
+        var keys = Object.keys(props);
+
+
+
+        items.forEach(function(item) {
+          var itemMatches = false;
+
+          for (var i = 0; i < keys.length; i++) {
+            var prop = keys[i];
+            var text = props[prop].toLowerCase();
+            if ((item[prop] || '').toString().toLowerCase().indexOf(text) !== -1) {
+              itemMatches = true;
+              break;
+            }
+          }
+
+          if (itemMatches) {
+            out.push(item);
+          }
+        });
+      } else {
+        // Let the output be the input untouched
+        out = items;
+      }
+
+      return out;
+    };
+  })
+  .directive('contenteditable', function() {
     return {
       restrict: "A",
       require: "ngModel",

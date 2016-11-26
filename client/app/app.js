@@ -17,6 +17,7 @@ import uiBootstrap from 'angular-ui-bootstrap';
 // import ngMessages from 'angular-messages';
 // import ngValidationMatch from 'angular-validation-match';
 
+import uiSelect from 'ui-select';
 
 import {
   routeConfig
@@ -50,7 +51,8 @@ import './app.scss';
 
 
 angular.module('pvApp', [
-
+    uiSelect, 
+    
     ngCookies, ngResource, ngSanitize, 'btford.socket-io', uiRouter,
     
     'as.sortable',

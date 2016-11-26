@@ -9,6 +9,7 @@ import 'angularjs-color-picker/dist/themes/angularjs-color-picker-bootstrap.min.
 import 'tinycolor2/dist/tinycolor-min.js';
 import 'angularjs-color-picker/dist/angularjs-color-picker.min.js';
 
+
 export default angular.module('pvApp.posterCanvas', ['color.picker'])
 
 
@@ -38,6 +39,9 @@ export default angular.module('pvApp.posterCanvas', ['color.picker'])
 })
 
 .directive('fileSelector', function(){
+	
+
+
 	return {
 		// template: require('./PosterCanvas.html'),
 		restrict: 'A',
@@ -118,6 +122,8 @@ export default angular.module('pvApp.posterCanvas', ['color.picker'])
 })
 
 .directive('posterCanvas', function(PosterVideo) {
+	
+
 	return {
 		template: require('./PosterCanvas.html'),
 		restrict: 'EA',
@@ -183,7 +189,22 @@ export default angular.module('pvApp.posterCanvas', ['color.picker'])
 			
 			var rFID = 0;
 
+			var jsonCache = '';
+			
+			// var pass = true;
+			// setTimeout(function(){
+			// 	pass = false;
+			// },10000);
+
 			function render(){
+
+				var currentJSON = JSON.stringify(scope.scene) + scope.step;
+				if (currentJSON !== jsonCache){
+					jsonCache = currentJSON;
+				}else{
+					return;
+				}
+
 				PosterVideo.canvas.draw(ctx, {
 					cmd: scope.scene.elem.arr,
 					bg: scope.scene.bg,
