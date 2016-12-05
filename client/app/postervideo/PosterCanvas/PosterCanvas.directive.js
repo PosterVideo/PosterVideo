@@ -191,16 +191,17 @@ export default angular.module('pvApp.posterCanvas', ['color.picker'])
 
 			var jsonCache = '';
 			
-			// var pass = true;
-			// setTimeout(function(){
-			// 	pass = false;
-			// },10000);
+			var pass = true;
+			setInterval(function(){
+				pass = true;
+			},5000);
 
 			function render(){
 
 				var currentJSON = JSON.stringify(scope.scene) + scope.step;
-				if (currentJSON !== jsonCache){
+				if (pass || currentJSON !== jsonCache){
 					jsonCache = currentJSON;
+					pass = false;
 				}else{
 					return;
 				}

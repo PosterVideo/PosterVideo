@@ -8,11 +8,52 @@
     <meta name="description" content="Let's make PosterVideos with Music!">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <link href='https://fonts.googleapis.com/css?family=Text+Me+One|Lobster+Two|Josefin+Sans:300|Cardo|Shadows+Into+Light+Two|Quicksand|Sacramento|Great+Vibes|Sue+Ellen+Francisco|Bilbo+Swash+Caps|Grand+Hotel|La+Belle+Aurore|Playball|Playfair+Display|League+Script' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+
+
+    <link href='https://fonts.googleapis.com/css?family=Text+Me+One|Lobster|Josefin+Sans:300|Cardo|Shadows+Into+Light+Two|Quicksand|Sacramento|Great+Vibes|Sue+Ellen+Francisco|Bilbo+Swash+Caps|Grand+Hotel|La+Belle+Aurore|Playball|Playfair+Display|League+Script' rel='stylesheet' type='text/css'>
+
+    <link href="https://fonts.googleapis.com/css?family=Allura|Architects+Daughter|Bungee+Shade|Cinzel|Cinzel+Decorative|Crafty+Girls|Josefin+Slab|Lobster+Two|Nixie+One|Reem+Kufi|Tangerine" rel="stylesheet">
+    
+
 
     <style type="text/css">
-      .welcome-container{height:100vh;display:flex;align-items:center;}
-      .welcome-spinner{width:50vmin;height:50vmin;margin: 0px auto;background-color:#ccc;border-radius:100%;-webkit-animation:sk-scaleout 1s infinite ease-in-out;animation:sk-scaleout 1s infinite ease-in-out}@-webkit-keyframes sk-scaleout{0%{-webkit-transform:scale(0)}100%{-webkit-transform:scale(1);opacity:0}}@keyframes sk-scaleout{0%{-webkit-transform:scale(0);transform:scale(0)}100%{-webkit-transform:scale(1);transform:scale(1);opacity:0}}
+      .welcome-container{height:100vh;display:flex;align-items:center; overflow: hidden;}
+       .welcome-spinner {
+            width: 50vmin;
+            height: 50vmin;
+            margin: 0px auto;
+            background-color: #ccc;
+            border-radius: 100%;
+            -webkit-animation: sk-scaleout 0.85s infinite ease-in-out;
+            animation: sk-scaleout 0.85s infinite ease-in-out
+        }
+
+        @-webkit-keyframes sk-scaleout {
+            0% {
+                -webkit-transform: translateY(100%) scale(0);
+            }
+
+            100% {
+                -webkit-transform: translateY(0%) scale(1.5);
+                opacity: 0
+            }
+        }
+
+        @keyframes sk-scaleout {
+            0% {
+                -webkit-transform: translateY(100%) scale(0);
+                transform: translateY(100%) scale(0)
+            }
+
+            100% {
+                -webkit-transform: translateY(0%) scale(1.5);
+                transform: translateY(0%) scale(1.5);
+                opacity: 0
+            }
+        }
+
     </style>
 
 </head>
@@ -31,7 +72,7 @@
       ga('create', 'UA-46835141-3');
       ga('send', 'pageview');
     </script>
-
+    
     <navbar></navbar>
     <div ui-view="">
       <div class="welcome-container">

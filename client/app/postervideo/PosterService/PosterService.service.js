@@ -124,7 +124,7 @@ export function PosterVideoService($http) {
 	this.canvas.bg = function(ctx, data){
 
 		if (data.bg && data.bg.yes && data.bg.img && data.bg.img.src){
-			ctx.drawImage(data.bg.img, Math.abs(data.bg.img.width - ctx.canvas.width) / 2 - parseInt(data.bg.xPos, 10) , 0, data.bg.img.height, data.bg.img.height, 0, 0, ctx.canvas.width,  ctx.canvas.height  );
+			ctx.drawImage(data.bg.img, Math.floor( Math.abs(data.bg.img.width - ctx.canvas.width) / 2 - parseInt(data.bg.xPos, 10) ) , 0, data.bg.img.height, data.bg.img.height, 0, 0, ctx.canvas.width,  ctx.canvas.height  );
 		}else{
 			
 			var lingrad = gradientCache || ( gradientCache = (function(){

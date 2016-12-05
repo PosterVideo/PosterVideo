@@ -22,6 +22,7 @@ export class PosterEditComponent {
 
     this.$scope = $scope;
 
+
     //sync the active scene.
     this.sceneDragCtrl = {
         // accept: function (sourceItemHandleScope, destSortableScope) {return true;},//override to determine drag is allowed or not. default is true.
@@ -39,12 +40,130 @@ export class PosterEditComponent {
     this.song = {};
     this.canvas = {};
     this.progress = 0;
+    this.activeTab = 0;
 
     // this.socket.on('sample', function(data){
     //   console.log(data);
     // });
 
-
+    this.fonts = [
+        {
+          "option": "Serif",
+          "value": "serif"
+        },
+        {
+          "option": "Arial",
+          "value": "arial"
+        },
+        {
+          "option": "San Serif",
+          "value": "sans-serif"
+        },
+        {
+          "option": " Lobster ",
+          "value": "'Lobster', cursive"
+        },
+        {
+          "option": " Lobster Two ",
+          "value": "'Lobster Two', cursive"
+        },
+        {
+          "option": " Text Me One ",
+          "value": "'Text Me One', sans-serif"
+        },
+        {
+          "option": " Josefin Sans ",
+          "value": "'Josefin Sans', sans-serif"
+        },
+        {
+          "option": " Cardo ",
+          "value": "'Cardo', serif"
+        },
+        {
+          "option": " Shadows Into Light Two ",
+          "value": "'Shadows Into Light Two', cursive"
+        },
+        {
+          "option": " Quick Sand ",
+          "value": "'Quicksand', sans-serif"
+        },
+        {
+          "option": " Sacramento ",
+          "value": "'Sacramento', cursive"
+        },
+        {
+          "option": " Great Vibes ",
+          "value": "'Great Vibes', cursive"
+        },
+        {
+          "option": " Sue Ellen Francisco ",
+          "value": "'Sue Ellen Francisco', cursive"
+        },
+        {
+          "option": " Bilbo Swash Caps ",
+          "value": "'Bilbo Swash Caps', cursive"
+        },
+        {
+          "option": " Grand Hotel ",
+          "value": "'Grand Hotel', cursive"
+        },
+        {
+          "option": " La Belle Aurore ",
+          "value": "'La Belle Aurore', cursive"
+        },
+        {
+          "option": " Play Ball ",
+          "value": "'Playball', cursive"
+        },
+        {
+          "option": " Playfair Display ",
+          "value": "'Playfair Display', serif"
+        },
+        {
+          "option": " League Script ",
+          "value": "'League Script', cursive"
+        },
+        {
+          "option": " Reem Kufi ",
+          "value": "'Reem Kufi', sans-serif"
+        },
+        {
+          "option": " Josefin Slab ",
+          "value": "'Josefin Slab', serif"
+        },
+        {
+          "option": " Architects Daughter ",
+          "value": "'Architects Daughter', cursive"
+        },
+        {
+          "option": " Tangerine ",
+          "value": "'Tangerine', cursive"
+        },
+        {
+          "option": " Nixie One ",
+          "value": "'Nixie One', cursive"
+        },
+        {
+          "option": " Allura ",
+          "value": "'Allura', cursive"
+        },
+        {
+          "option": " Crafty Girls ",
+          "value": "'Crafty Girls', cursive"
+        },
+        {
+          "option": " Bungee Shade ",
+          "value": "'Bungee Shade', cursive"
+        },
+        {
+          "option": " Cinzel ",
+          "value": "'Cinzel', serif"
+        },
+        {
+          "option": " Cinzel Decorative ",
+          "value": "'Cinzel Decorative', cursive"
+        }
+      ];
 
   }
 
@@ -249,7 +368,7 @@ export class PosterEditComponent {
   // }
 
   getDemoRam(){
-    return JSON.parse("{\"scene\":{\"nowIndex\":0,\"arr\":[{\"active\":true,\"border\":{\"yes\":true,\"xPos\":40,\"yPos\":40,\"width\":1000,\"height\":1000,\"lineWidth\":1,\"color\":\"rgba(0,0,0,0.5)\"},\"overcast\":{\"yes\":true,\"xPos\":40,\"yPos\":40,\"width\":1000,\"height\":1000,\"color\":\"rgba(255,255,255,0.5)\"},\"logo\":{\"yes\":true,\"xPos\":100,\"yPos\":100,\"width\":200,\"height\":200,\"scale\":20},\"bg\":{\"xPos\":0,\"yPos\":0},\"elem\":{\"nowIndex\":2,\"arr\":[{\"type\":\"text\",\"text\":\"\",\"active\":false,\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":109,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":522,\"yPos\":236,\"rDeg\":0,\"rCenter\":\"center\"},{\"type\":\"text\",\"text\":\"Lok Lok's\",\"active\":false,\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":109,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":508,\"yPos\":364,\"rDeg\":0,\"rCenter\":\"center\"},{\"type\":\"text\",\"text\":\"Life Tips.\",\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":56,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":521,\"yPos\":548,\"rDeg\":0,\"rCenter\":\"center\",\"active\":true},{\"type\":\"text\",\"text\":\"okWealthy.com\",\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":87,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":523,\"yPos\":941,\"rDeg\":0,\"rCenter\":\"center\",\"active\":false},{\"type\":\"text\",\"text\":\"\",\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":87,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":523,\"yPos\":941,\"rDeg\":0,\"rCenter\":\"center\",\"active\":false}]}},{\"active\":false,\"border\":{\"yes\":true,\"xPos\":40,\"yPos\":40,\"width\":1000,\"height\":1000,\"lineWidth\":1,\"color\":\"rgba(0,0,0,0.5)\"},\"overcast\":{\"yes\":true,\"xPos\":40,\"yPos\":40,\"width\":1000,\"height\":1000,\"color\":\"rgba(255,255,255,0.5)\"},\"logo\":{\"yes\":true,\"xPos\":100,\"yPos\":100,\"width\":200,\"height\":200,\"scale\":20},\"bg\":{\"xPos\":0,\"yPos\":0},\"elem\":{\"nowIndex\":3,\"arr\":[{\"type\":\"text\",\"text\":\"\",\"active\":false,\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":109,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":522,\"yPos\":236,\"rDeg\":0,\"rCenter\":\"center\"},{\"type\":\"text\",\"text\":\"It's important to\",\"active\":false,\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":109,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":508,\"yPos\":364,\"rDeg\":0,\"rCenter\":\"center\"},{\"type\":\"text\",\"text\":\"have some funz.\",\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":56,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":521,\"yPos\":548,\"rDeg\":0,\"rCenter\":\"center\",\"active\":false},{\"type\":\"text\",\"text\":\"\",\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":87,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":523,\"yPos\":941,\"rDeg\":0,\"rCenter\":\"center\",\"active\":false}]}},{\"active\":false,\"border\":{\"yes\":true,\"xPos\":40,\"yPos\":40,\"width\":1000,\"height\":1000,\"lineWidth\":1,\"color\":\"rgba(0,0,0,0.5)\"},\"overcast\":{\"yes\":true,\"xPos\":40,\"yPos\":40,\"width\":1000,\"height\":1000,\"color\":\"rgba(255,255,255,0.5)\"},\"logo\":{\"yes\":true,\"xPos\":100,\"yPos\":100,\"width\":200,\"height\":200,\"scale\":20},\"bg\":{\"xPos\":0,\"yPos\":0},\"elem\":{\"nowIndex\":2,\"arr\":[{\"type\":\"text\",\"text\":\"\",\"active\":false,\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":109,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":522,\"yPos\":236,\"rDeg\":0,\"rCenter\":\"center\"},{\"type\":\"text\",\"text\":\"It's fun to\",\"active\":false,\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":109,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":508,\"yPos\":364,\"rDeg\":0,\"rCenter\":\"center\"},{\"type\":\"text\",\"text\":\"dance.\",\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":56,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":521,\"yPos\":548,\"rDeg\":0,\"rCenter\":\"center\",\"active\":true},{\"type\":\"text\",\"text\":\"\",\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":87,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":523,\"yPos\":941,\"rDeg\":0,\"rCenter\":\"center\",\"active\":false}]}},{\"active\":false,\"border\":{\"yes\":true,\"xPos\":40,\"yPos\":40,\"width\":1000,\"height\":1000,\"lineWidth\":1,\"color\":\"rgba(0,0,0,0.5)\"},\"overcast\":{\"yes\":true,\"xPos\":40,\"yPos\":40,\"width\":1000,\"height\":1000,\"color\":\"rgba(255,255,255,0.5)\"},\"logo\":{\"yes\":true,\"xPos\":100,\"yPos\":100,\"width\":200,\"height\":200,\"scale\":20},\"bg\":{\"xPos\":0,\"yPos\":0},\"elem\":{\"nowIndex\":2,\"arr\":[{\"type\":\"text\",\"text\":\"\",\"active\":false,\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":109,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":522,\"yPos\":236,\"rDeg\":0,\"rCenter\":\"center\"},{\"type\":\"text\",\"text\":\"It's happy to\",\"active\":false,\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":109,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":508,\"yPos\":364,\"rDeg\":0,\"rCenter\":\"center\"},{\"type\":\"text\",\"text\":\"give a hug.\",\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":56,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":521,\"yPos\":548,\"rDeg\":0,\"rCenter\":\"center\",\"active\":true},{\"type\":\"text\",\"text\":\"\",\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":87,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":523,\"yPos\":941,\"rDeg\":0,\"rCenter\":\"center\",\"active\":false}]}},{\"active\":false,\"border\":{\"yes\":true,\"xPos\":40,\"yPos\":40,\"width\":1000,\"height\":1000,\"lineWidth\":1,\"color\":\"rgba(0,0,0,0.5)\"},\"overcast\":{\"yes\":true,\"xPos\":40,\"yPos\":40,\"width\":1000,\"height\":1000,\"color\":\"rgba(255,255,255,0.5)\"},\"logo\":{\"yes\":true,\"xPos\":100,\"yPos\":100,\"width\":200,\"height\":200,\"scale\":20},\"bg\":{\"xPos\":0,\"yPos\":0},\"elem\":{\"nowIndex\":2,\"arr\":[{\"type\":\"text\",\"text\":\"\",\"active\":false,\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":109,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":522,\"yPos\":236,\"rDeg\":0,\"rCenter\":\"center\"},{\"type\":\"text\",\"text\":\"It's my joy to\",\"active\":false,\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":109,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":508,\"yPos\":364,\"rDeg\":0,\"rCenter\":\"center\"},{\"type\":\"text\",\"text\":\"wish u have a good life.\",\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":56,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":521,\"yPos\":548,\"rDeg\":0,\"rCenter\":\"center\",\"active\":true},{\"type\":\"text\",\"text\":\"\",\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":87,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":523,\"yPos\":941,\"rDeg\":0,\"rCenter\":\"center\",\"active\":false}]}},{\"active\":false,\"border\":{\"yes\":true,\"xPos\":40,\"yPos\":40,\"width\":1000,\"height\":1000,\"lineWidth\":1,\"color\":\"rgba(0,0,0,0.5)\"},\"overcast\":{\"yes\":true,\"xPos\":40,\"yPos\":40,\"width\":1000,\"height\":1000,\"color\":\"rgba(255,255,255,0.5)\"},\"logo\":{\"yes\":true,\"xPos\":100,\"yPos\":100,\"width\":200,\"height\":200,\"scale\":20},\"bg\":{\"xPos\":0,\"yPos\":0},\"elem\":{\"nowIndex\":3,\"arr\":[{\"type\":\"text\",\"text\":\"\",\"active\":false,\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":109,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":522,\"yPos\":236,\"rDeg\":0,\"rCenter\":\"center\"},{\"type\":\"text\",\"text\":\"Thanks for watching.\",\"active\":false,\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":109,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":508,\"yPos\":364,\"rDeg\":0,\"rCenter\":\"center\"},{\"type\":\"text\",\"text\":\"much love,\",\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":56,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":521,\"yPos\":548,\"rDeg\":0,\"rCenter\":\"center\",\"active\":false},{\"type\":\"text\",\"text\":\"Lok Lok\",\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":87,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":529,\"yPos\":683,\"rDeg\":0,\"rCenter\":\"center\",\"active\":true},{\"type\":\"text\",\"text\":\"\",\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":87,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":523,\"yPos\":941,\"rDeg\":0,\"rCenter\":\"center\",\"active\":false}]}}]}}");
+    return JSON.parse("{\"scene\":{\"nowIndex\":0,\"arr\":[{\"active\":true,\"border\":{\"yes\":true,\"xPos\":40,\"yPos\":40,\"width\":1000,\"height\":1000,\"lineWidth\":1,\"color\":\"rgba(0,0,0,0.5)\"},\"overcast\":{\"yes\":true,\"xPos\":40,\"yPos\":40,\"width\":1000,\"height\":1000,\"color\":\"hsla(0, 0%, 100%, 0.75)\"},\"logo\":{\"yes\":true,\"xPos\":100,\"yPos\":100,\"width\":200,\"height\":200,\"scale\":20},\"bg\":{\"url\":\"https://s3-ap-northeast-1.amazonaws.com/postervideo-assets/images/sample-bg/highspeed-photography-1004250_1920.jpg\",\"img\":{},\"yes\":true,\"xPos\":131,\"yPos\":-5,\"width\":4608,\"height\":2592,\"scale\":20,\"refresh\":0.5005753554234347},\"elem\":{\"nowIndex\":3,\"arr\":[{\"type\":\"text\",\"text\":\"\",\"active\":false,\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":109,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":522,\"yPos\":236,\"rDeg\":0,\"rCenter\":\"center\"},{\"type\":\"text\",\"text\":\"Lok Lok's\",\"active\":false,\"fontStyle\":\"'Bungee Shade', cursive\",\"fontSize\":109,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":537,\"yPos\":291,\"rDeg\":0,\"rCenter\":\"center\"},{\"type\":\"text\",\"text\":\"Life Tips.\",\"fontStyle\":\"'Cinzel Decorative', cursive\",\"fontSize\":\"177\",\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":548,\"yPos\":582,\"rDeg\":0,\"rCenter\":\"center\",\"active\":false},{\"type\":\"text\",\"text\":\"PosterVideo.com\",\"fontStyle\":\"'Playfair Display', serif\",\"fontSize\":\"76\",\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":556,\"yPos\":840,\"rDeg\":0,\"rCenter\":\"center\",\"active\":true},{\"type\":\"text\",\"text\":\"\",\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":87,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":523,\"yPos\":941,\"rDeg\":0,\"rCenter\":\"center\",\"active\":false}]}},{\"active\":false,\"border\":{\"yes\":true,\"xPos\":40,\"yPos\":40,\"width\":1000,\"height\":1000,\"lineWidth\":1,\"color\":\"rgba(0,0,0,0.5)\"},\"overcast\":{\"yes\":true,\"xPos\":40,\"yPos\":40,\"width\":1000,\"height\":1000,\"color\":\"rgba(255,255,255,0.5)\"},\"logo\":{\"yes\":true,\"xPos\":100,\"yPos\":100,\"width\":200,\"height\":200,\"scale\":20},\"bg\":{\"url\":\"https://s3-ap-northeast-1.amazonaws.com/postervideo-assets/images/sample-bg/rainbow-436171_1920.jpg\",\"img\":{},\"yes\":true,\"xPos\":\"0\",\"yPos\":-4,\"width\":1920,\"height\":1280,\"scale\":20,\"refresh\":0.48894171741028836},\"elem\":{\"nowIndex\":3,\"arr\":[{\"type\":\"text\",\"text\":\"\",\"active\":false,\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":109,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":522,\"yPos\":236,\"rDeg\":0,\"rCenter\":\"center\"},{\"type\":\"text\",\"text\":\"It's important to\",\"active\":false,\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":109,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":508,\"yPos\":364,\"rDeg\":0,\"rCenter\":\"center\"},{\"type\":\"text\",\"text\":\"have some funz.\",\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":56,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":521,\"yPos\":548,\"rDeg\":0,\"rCenter\":\"center\",\"active\":false},{\"type\":\"text\",\"text\":\"\",\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":87,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":523,\"yPos\":941,\"rDeg\":0,\"rCenter\":\"center\",\"active\":false}]}},{\"active\":false,\"border\":{\"yes\":true,\"xPos\":40,\"yPos\":40,\"width\":1000,\"height\":1000,\"lineWidth\":1,\"color\":\"rgba(0,0,0,0.5)\"},\"overcast\":{\"yes\":true,\"xPos\":40,\"yPos\":40,\"width\":1000,\"height\":1000,\"color\":\"rgba(255,255,255,0.5)\"},\"logo\":{\"yes\":true,\"xPos\":100,\"yPos\":100,\"width\":200,\"height\":200,\"scale\":20},\"bg\":{\"url\":\"https://s3-ap-northeast-1.amazonaws.com/postervideo-assets/images/sample-bg/rainbow-436171_1920.jpg\",\"img\":{},\"yes\":true,\"xPos\":0,\"yPos\":0,\"width\":1920,\"height\":1280,\"scale\":20,\"refresh\":0.7444488062748063},\"elem\":{\"nowIndex\":2,\"arr\":[{\"type\":\"text\",\"text\":\"\",\"active\":false,\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":109,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":522,\"yPos\":236,\"rDeg\":0,\"rCenter\":\"center\"},{\"type\":\"text\",\"text\":\"It's fun to\",\"active\":false,\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":109,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":508,\"yPos\":364,\"rDeg\":0,\"rCenter\":\"center\"},{\"type\":\"text\",\"text\":\"dance.\",\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":56,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":521,\"yPos\":548,\"rDeg\":0,\"rCenter\":\"center\",\"active\":true},{\"type\":\"text\",\"text\":\"\",\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":87,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":523,\"yPos\":941,\"rDeg\":0,\"rCenter\":\"center\",\"active\":false}]}},{\"active\":false,\"border\":{\"yes\":true,\"xPos\":40,\"yPos\":40,\"width\":1000,\"height\":1000,\"lineWidth\":1,\"color\":\"rgba(0,0,0,0.5)\"},\"overcast\":{\"yes\":true,\"xPos\":40,\"yPos\":40,\"width\":1000,\"height\":1000,\"color\":\"rgba(255,255,255,0.5)\"},\"logo\":{\"yes\":true,\"xPos\":100,\"yPos\":100,\"width\":200,\"height\":200,\"scale\":20},\"bg\":{\"url\":\"https://s3-ap-northeast-1.amazonaws.com/postervideo-assets/images/sample-bg/rainbow-436171_1920.jpg\",\"img\":{},\"yes\":true,\"xPos\":0,\"yPos\":0,\"width\":1920,\"height\":1280,\"scale\":20,\"refresh\":0.04388921284227676},\"elem\":{\"nowIndex\":2,\"arr\":[{\"type\":\"text\",\"text\":\"\",\"active\":false,\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":109,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":522,\"yPos\":236,\"rDeg\":0,\"rCenter\":\"center\"},{\"type\":\"text\",\"text\":\"It's happy to\",\"active\":false,\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":109,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":508,\"yPos\":364,\"rDeg\":0,\"rCenter\":\"center\"},{\"type\":\"text\",\"text\":\"give a hug.\",\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":56,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":521,\"yPos\":548,\"rDeg\":0,\"rCenter\":\"center\",\"active\":true},{\"type\":\"text\",\"text\":\"\",\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":87,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":523,\"yPos\":941,\"rDeg\":0,\"rCenter\":\"center\",\"active\":false}]}},{\"active\":false,\"border\":{\"yes\":true,\"xPos\":40,\"yPos\":40,\"width\":1000,\"height\":1000,\"lineWidth\":1,\"color\":\"rgba(0,0,0,0.5)\"},\"overcast\":{\"yes\":true,\"xPos\":40,\"yPos\":40,\"width\":1000,\"height\":1000,\"color\":\"rgba(255,255,255,0.5)\"},\"logo\":{\"yes\":true,\"xPos\":100,\"yPos\":100,\"width\":200,\"height\":200,\"scale\":20},\"bg\":{\"url\":\"https://s3-ap-northeast-1.amazonaws.com/postervideo-assets/images/sample-bg/rainbow-436171_1920.jpg\",\"img\":{},\"yes\":true,\"xPos\":0,\"yPos\":0,\"width\":1920,\"height\":1280,\"scale\":20,\"refresh\":0.03074245597784353},\"elem\":{\"nowIndex\":2,\"arr\":[{\"type\":\"text\",\"text\":\"\",\"active\":false,\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":109,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":522,\"yPos\":236,\"rDeg\":0,\"rCenter\":\"center\"},{\"type\":\"text\",\"text\":\"It's my joy to\",\"active\":false,\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":109,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":508,\"yPos\":364,\"rDeg\":0,\"rCenter\":\"center\"},{\"type\":\"text\",\"text\":\"wish u have a good life.\",\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":56,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":521,\"yPos\":548,\"rDeg\":0,\"rCenter\":\"center\",\"active\":true},{\"type\":\"text\",\"text\":\"\",\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":87,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":523,\"yPos\":941,\"rDeg\":0,\"rCenter\":\"center\",\"active\":false}]}},{\"active\":false,\"border\":{\"yes\":true,\"xPos\":40,\"yPos\":40,\"width\":1000,\"height\":1000,\"lineWidth\":1,\"color\":\"rgba(0,0,0,0.5)\"},\"overcast\":{\"yes\":true,\"xPos\":40,\"yPos\":40,\"width\":1000,\"height\":1000,\"color\":\"rgba(255,255,255,0.5)\"},\"logo\":{\"yes\":true,\"xPos\":100,\"yPos\":100,\"width\":200,\"height\":200,\"scale\":20},\"bg\":{\"url\":\"https://s3-ap-northeast-1.amazonaws.com/postervideo-assets/images/sample-bg/cloud-600224_1920.jpg\",\"img\":{},\"yes\":true,\"xPos\":118,\"yPos\":2,\"width\":1920,\"height\":1279,\"scale\":20,\"refresh\":0.1442038842773421},\"elem\":{\"nowIndex\":1,\"arr\":[{\"type\":\"text\",\"text\":\"\",\"active\":false,\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":109,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":522,\"yPos\":236,\"rDeg\":0,\"rCenter\":\"center\"},{\"type\":\"text\",\"text\":\"Thanks for watching.\",\"active\":true,\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":109,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":542,\"yPos\":393,\"rDeg\":0,\"rCenter\":\"center\"},{\"type\":\"text\",\"text\":\"much love,\",\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":56,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":521,\"yPos\":548,\"rDeg\":0,\"rCenter\":\"center\",\"active\":false},{\"type\":\"text\",\"text\":\"Lok Lok\",\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":87,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":519,\"yPos\":689,\"rDeg\":0,\"rCenter\":\"center\",\"active\":false},{\"type\":\"text\",\"text\":\"\",\"fontStyle\":\"'Josefin Sans', sans-serif\",\"fontSize\":87,\"fontColor\":\"rgba(0,0,0,1)\",\"xPos\":523,\"yPos\":941,\"rDeg\":0,\"rCenter\":\"center\",\"active\":false}]}}]}}");
   }
 
   getSampleRam(){
@@ -419,7 +538,14 @@ export class PosterEditComponent {
   }
 
   $onInit(){
+
     this.refreshImage('');
+
+    this.$scope.$watch('$ctrl.activeTab', function(newVal){
+      if (parseInt(newVal, 10) === 2 || parseInt(newVal, 10) === 1){
+        this.refreshImage('');
+      }
+    }.bind(this));
 
     this.PV.http.show(this.$stateParams.id)
       .then(function(response){

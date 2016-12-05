@@ -7,7 +7,7 @@ import routes from './ImageBrowse.routes';
 
 export class ImageBrowseComponent {
 
-  constructor(Images, Auth, $scope, $q) {
+  constructor(Images, Auth, $scope, $q, $state) {
     'ngInject';
     this.message = 'Hello';
     this.Image = Images;
@@ -16,9 +16,15 @@ export class ImageBrowseComponent {
 
     this.newFiles = [];
     
+    this.loading = false;
+
+    this.isInPage = ($state.$current.url.source === '/image' );
+
+
   }
 
   uploadRemain(){
+    this.loading = true;
     var arr = this.newFiles;
     var work = [];
     angular.forEach(arr, function(item, key){
@@ -31,6 +37,7 @@ export class ImageBrowseComponent {
               .then(function(){
                 this.newFiles = [];
                 this.$onInit();
+                this.loading = false;
               }.bind(this));
           }
 
@@ -55,9 +62,12 @@ export class ImageBrowseComponent {
 
   $onInit(){
 
+    this.loading = true;
+              
     this.Image.http.my(this.Auth.getCurrentUserSync()._id)
       .then(function(response){
-
+        this.loading = false;
+    
         this.myImgs = response.data;
 
       }.bind(this));

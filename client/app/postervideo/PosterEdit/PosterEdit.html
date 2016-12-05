@@ -10,7 +10,6 @@
 	</div>
 </header>
 
-
 <div ng-if="$ctrl.myPV">
 
 	<div class="container">
@@ -54,10 +53,8 @@
 			Visual Details
 		</h1>
 
-		<uib-tabset active="active">
+		<uib-tabset active="$ctrl.activeTab">
 			
-			
-
 			<uib-tab index="0">
 				<uib-tab-heading>
 					<i class="fa fa-font"></i> Text
@@ -69,12 +66,36 @@
 					<div class="col-lg-12">
 						<button ng-click="$ctrl.PV.elem.copy($ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].elem.arr, $ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene), $ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].elem)" class="btn btn-default"><i class="fa fa-plus"></i></button>
 						
-						<select style="width: 138px; display: inline-block;" class="form-control" ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).fontStyle">
+						<!-- <input class="form-control" type="color" style="width: 42px; display: inline-block;" ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).fontColor" > -->
+						<div class="" style="position: relative; width: 35px; height: 0px; display: inline-block;">
+							<color-picker options="{ format: 'rgba', swatchOnly: true }" style="width: 42px; display: block; position: absolute; top: -21px;" ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).fontColor"></color-picker>
+						</div>
+
+						<div style="width: 138px; display: inline-block; position: relative;" >
+							<ui-select style="width: 138px; display: inline-block; position: absolute; top: -21px;"  class="aphorism-mc" d-multiple ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).fontStyle"
+							>
+								<ui-select-match>
+									<span class="font-mc" style="font-family: {{ $select.selected.value }};" ng-bind="$select.selected.option"></span>
+								</ui-select-match>
+								<ui-select-choices 
+									style="width: 338px; height: 50vh; max-height: 50vh;"
+									d-refresh="$ctrl.refreshArHa($select.search)"
+									d-refresh-delay="50"
+									repeat="item.value as item in $ctrl.fonts | propsFilter: {option: $select.search, value: $select.search} "
+								>
+									<span style="font-family: {{ item.value }}; font-size: 30px;" ng-bind-html="item.option | highlight: $select.search"></span>
+								</ui-select-choices>
+							</ui-select>
+						</div>
+						
+
+						<!-- <select ng-if="false" style="width: 138px; display: inline-block;" class="form-control" ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).fontStyle">
 								
 							<option selected value="serif">Serif</option>
 							<option value="arial">Arial</option>
 							<option value="sans-serif">San Serif</option>
-							<option value="'Lobster Two', cursive"> Lobster </option>
+							<option value="'Lobster', cursive"> Lobster </option>
+							<option value="'Lobster Two', cursive"> Lobster Two </option>
 							<option value="'Text Me One', sans-serif"> Text Me One </option>
 							<option value="'Josefin Sans', sans-serif"> Josefin Sans </option>
 							<option value="'Cardo', serif"> Cardo </option>
@@ -89,8 +110,20 @@
 							<option value="'Playball', cursive"> Play Ball </option>
 							<option value="'Playfair Display', serif"> Playfair Display </option>
 							<option value="'League Script', cursive"> League Script </option>
+							
+							<option value="'Reem Kufi', sans-serif"> Reem Kufi </option>
+							<option value="'Josefin Slab', serif"> Josefin Slab </option>
+							<option value="'Architects Daughter', cursive"> Architects Daughter </option>
+							<option value="'Cinzel', serif"> Cinzel </option>
+							<option value="'Tangerine', cursive"> Tangerine </option>
+							<option value="'Nixie One', cursive"> Nixie One </option>
+							<option value="'Allura', cursive"> Allura </option>
+							<option value="'Crafty Girls', cursive"> Crafty Girls </option>
+							<option value="'Bungee Shade', cursive"> Bungee Shade </option>
+							<option value="'Cinzel Decorative', cursive"> Cinzel Decorative </option>
 
-					    </select>
+
+					    </select> -->
 
 						<button uib-popover-template="'myFontSizeTemplate.html'" popover-title="Font Size" popover-trigger="'outsideClick'" type="button" class="btn btn-default"> <i class="fa fa-font"></i> {{ $ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).fontSize }}</button>
 						<script type="text/ng-template" id="myFontSizeTemplate.html">
@@ -144,10 +177,7 @@
 							<label class="btn btn-default" ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).rCenter" uib-btn-radio="'right'"><i class="fa fa-align-right"></i></label>
 						</div>
 							
-						<!-- <input class="form-control" type="color" style="width: 42px; display: inline-block;" ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).fontColor" > -->
-						<div class="" style="position: relative; width: 40px; height: 0px; display: inline-block;">
-							<color-picker options="{ format: 'rgb', swatchOnly: true }" style="width: 42px; display: block; position: absolute; top: -22px;" ng-model="$ctrl.PV.elem.resolveActiveItem($ctrl.myPV.ram.scene).fontColor"></color-picker>
-						</div>
+						
 						
 
 						<button 
@@ -161,7 +191,7 @@
 
 				</div>
 
-
+				
 
 				<div class="row">
 					<div class="col-sm-4">
@@ -184,7 +214,6 @@
 						</div>
 						
 						
-
 						<!-- <div ng-if="false">
 							<div class="form-group">
 								<label>Font Style: </label>
@@ -281,8 +310,6 @@
 							<label><input type="checkbox" ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].bg.yes"> Render?</label>
 						</div>
 						
-
-
 						<div class="form-group">
 							<label>Adjust Background: </label> <span ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].bg.xPos" class="pv-underline" contenteditable></span></label>
 							<input type="range" value="1000" ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].bg.xPos" min="-1080" max="1080">
@@ -295,9 +322,12 @@
 
 
 						<div class="row scrollbox" >
+							
 							<div class="col-md-12">
-								<a class="btn btn-info" ui-sref="imageBrowse">Upload Images</a>
+								<a class="btn btn-info" ng-click="$ctrl.activeTab = 6;" d-ui-sref="imageBrowse">Upload Images</a>
+								<!-- <input class="form-control" type="text" ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].bg.url"> -->
 							</div>
+
 							<div ng-repeat="column in [0,1]" class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 							
 								<div class="thumbnail" ng-if="$index % 2 === column" ng-repeat="image in $ctrl.images | filter:{ isLogo: false }">
@@ -305,6 +335,7 @@
 								</div>
 
 							</div>
+
 						</div>
 						
 
@@ -345,7 +376,7 @@
 						<div class="row scrollbox" >
 
 							<div class="col-md-12">
-								<a class="btn btn-info" ui-sref="imageBrowse">Upload Images</a>
+								<a class="btn btn-info" ng-click="$ctrl.activeTab = 6;" d-ui-sref="imageBrowse">Upload Images</a>
 							</div>
 
 							<div ng-repeat="column in [0,1]" class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -395,7 +426,7 @@
 							<input type="range" value="1000" ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].overcast.height" min="-1080" max="1080">
 						</div>
 
-						<color-picker options="{ format: 'rgb', swatchOnly: false }" 
+						<color-picker options="{ format: 'rgba', swatchOnly: false }" 
 						ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].overcast.color"></color-picker>
 
 					</div>
@@ -441,7 +472,7 @@
 							<input type="range" value="1000" ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].border.height" min="-1080" max="1080">
 						</div>
 
-						<color-picker options="{ format: 'rgb', swatchOnly: false }" 
+						<color-picker options="{ format: 'rgba', swatchOnly: false }" 
 						ng-model="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].border.color"></color-picker>
 						
 
@@ -470,7 +501,6 @@
 							<input type="range" ng-model="$ctrl.step" min="0" max="{{ $ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex].elem.arr.length }}">
 						</div>
 
-						
 					</div>
 					<div class="col-sm-8">
 						<poster-canvas 
@@ -480,6 +510,25 @@
 							canvas="$ctrl.canvas"
 							scene="$ctrl.myPV.ram.scene.arr[$ctrl.myPV.ram.scene.nowIndex]">
 						</poster-canvas>
+					</div>
+
+				</div>
+
+			</uib-tab>
+
+
+			<uib-tab index="6">
+				<uib-tab-heading>
+					<i class="fa fa-square-o"></i> Images
+				</uib-tab-heading>
+				
+
+				<div class="row scrollbox" style="max-height: 60vh;">
+					
+					<div dclass="col-sm-12">
+						
+						<image-browse></image-browse>
+
 					</div>
 
 				</div>

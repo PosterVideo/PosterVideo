@@ -1,7 +1,8 @@
-<header class="hero-unit pv-banner">
+<header class="hero-unit pv-banner" ng-if="$ctrl.isInPage">
 	<div class="container">
 		<h1>Images.</h1>
 		<p class="lead">Upload and Manage them here.</p>
+
 	</div>
 </header>
 
@@ -10,12 +11,25 @@
 	
 	<div class="row">
 		<div class="col-lg-12">
+			
+			<div  ng-if="$ctrl.isInPage">
+				<h1>
+					Images Uploader	
+				</h1>
+				<hr>
+			</div>
+			
+
 			<div class="form-group">
+
+				
 				<div image-uploader ng-model="$ctrl.newFiles" class="btn btn-default">
-					Select Files
+					Select Files <i class="fa fa-cloud-upload"></i>
 				</div>
 				
 				<div ng-show="$ctrl.newFiles.length > 0" class="btn btn-success tada animated" ng-click="$ctrl.uploadRemain()">Confirm Upload</div>
+				
+
 
 				<!-- <input class="files" image-uploader ng-model="$ctrl.newFiles" type="file" multiple="multiple" accept="image/*"> -->
 			</div>
